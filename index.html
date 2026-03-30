@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Fidelis Mortty | Cybernetic Portfolio</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #03050b;
+      font-family: 'Inter', 'Space Grotesk', sans-serif;
+      color: #edf2ff;
+      overflow-x: hidden;
+    }
+
+    /* animated gradient orb background */
+    .orb-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, #0a0f1f, #010101);
+    }
+
+    .glow-orb {
+      position: fixed;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(59,130,246,0.2), transparent);
+      top: -20%;
+      right: -20%;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      animation: float 18s infinite alternate;
+    }
+
+    .glow-orb2 {
+      left: -20%;
+      bottom: -20%;
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(168,85,247,0.2), transparent);
+      filter: blur(100px);
+      animation: float 22s infinite alternate-reverse;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* glassmorphism navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(125deg, #fff, #a78bfa, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #cbd5e6;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #a855f7;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .btn-auth {
+      background: transparent;
+      border: 1px solid #a855f7;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      color: white;
+    }
+
+    .btn-auth-primary {
+      background: linear-gradient(95deg, #3b82f6, #a855f7);
+      border: none;
+    }
+
+    .btn-auth-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(168,85,247,0.4);
+    }
+
+    /* hero section */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 7vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #e0e7ff, #c084fc, #60a5fa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      margin-top: 1.2rem;
+      font-size: 1.1rem;
+      color: #9ca3af;
+      max-width: 550px;
+    }
+
+    .btn-group {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #3b82f6, #a855f7);
+      color: white;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    .btn-outline {
+      border: 1px solid #a855f7;
+      color: white;
+      background: rgba(0,0,0,0.3);
+    }
+
+    /* skills chips */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill-chip {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(6px);
+      border: 1px solid #334155;
+      padding: 0.6rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 500;
+    }
+
+    /* 3D tilt cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tilt-card {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1.8rem;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s;
+    }
+
+    .tilt-card:hover {
+      transform: translateY(-10px) rotateX(3deg);
+      border-color: #c084fc;
+      box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+    }
+
+    /* MODAL (Login/Signup) */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #0f172ad9;
+      border: 1px solid #a855f7;
+      border-radius: 2rem;
+      padding: 2rem;
+      width: 90%;
+      max-width: 420px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+      animation: modalPop 0.3s ease;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 60px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      position: absolute;
+      right: 1.5rem;
+      top: 1rem;
+      cursor: pointer;
+    }
+
+    .switch-auth {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .switch-auth span {
+      color: #c084fc;
+      cursor: pointer;
+    }
+
+    .user-greeting {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(168,85,247,0.2);
+      padding: 0.4rem 1rem;
+      border-radius: 60px;
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #f87171;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* contact & footer */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 0 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      padding: 0.6rem 1.5rem;
+      border-radius: 60px;
+      text-decoration: none;
+      color: #e2e8f0;
+      border: 1px solid #2d3a4e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid #1e293b;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 780px) {
+      .container {
+        padding: 0 1.2rem;
+      }
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .hero {
+        min-height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="orb-bg"></div>
+<div class="glow-orb"></div>
+<div class="glow-orb glow-orb2"></div>
+
+<div class="container">
+  <nav class="navbar">
+    <div class="logo">✦ FIDELIS MORTTY ✦</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Connect</a></li>
+      <li id="authNav">
+        <div class="auth-buttons" id="unauthBtns">
+          <button class="btn-auth" id="loginBtn">Log in</button>
+          <button class="btn-auth btn-auth-primary" id="signupBtn">Sign up</button>
+        </div>
+        <div id="userMenu" style="display: none;" class="user-greeting">
+          <i class="fas fa-user-astronaut"></i>
+          <span id="userNameDisplay">User</span>
+          <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1><span class="gradient-text">Fidelis Mortty</span><br>Engineering the Future</h1>
+      <div class="hero-desc">Full-stack architect • AI researcher • Immersive experience designer. Pushing the boundaries of what's possible with neural UIs and quantum-ready systems.</div>
+      <div class="btn-group">
+        <a href="#projects" class="btn btn-primary"><i class="fas fa-cube"></i> Explore Reality</a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;"><i class="fas fa-microchip"></i> Tech Arsenal</h2>
+    <div class="skills-grid">
+      <div class="skill-chip"><i class="fab fa-react"></i> React/Next.js</div>
+      <div class="skill-chip"><i class="fab fa-python"></i> PyTorch/TensorFlow</div>
+      <div class="skill-chip"><i class="fas fa-cloud"></i> AWS/Azure</div>
+      <div class="skill-chip"><i class="fas fa-brain"></i> Neural Interfaces</div>
+      <div class="skill-chip"><i class="fas fa-cubes"></i> Three.js/WebGL</div>
+      <div class="skill-chip"><i class="fab fa-solid fa-database"></i> Vector DBs</div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 style="font-size: 2rem;"><i class="fas fa-project-diagram"></i> Featured Innovations</h2>
+    <div class="projects-grid">
+      <div class="tilt-card">
+        <i class="fas fa-robot" style="font-size: 2rem; color: #c084fc;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">Nexus Cognitive AI</h3>
+        <p>Autonomous agent with memory & reasoning, deployed across edge devices. Real-time adaptive learning.</p>
+      </div>
+      <div class="tilt-card">
+        <i class="fas fa-vr-cardboard" style="font-size: 2rem; color: #c084fc;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">MetaForge Studio</h3>
+        <p>Web-based XR editor with hand tracking and volumetric capture — build immersive worlds in browser.</p>
+      </div>
+      <div class="tilt-card">
+        <i class="fas fa-chart-line" style="font-size: 2rem; color: #c084fc;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">Quantum Insights</h3>
+        <p>Hybrid quantum-classical dashboard for financial predictions and molecular simulation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 style="font-size: 2rem;"><i class="fas fa-handshake"></i> Let's Forge Tomorrow</h2>
+    <div class="contact-links">
+      <a href="#" class="contact-item"><i class="fab fa-github"></i> @fidelis-mvp</a>
+      <a href="#" class="contact-item"><i class="fab fa-linkedin"></i> /in/fidelismortty</a>
+      <a href="#" class="contact-item"><i class="fas fa-envelope"></i> fidelis@cyberforge.io</a>
+      <a href="#" class="contact-item"><i class="fab fa-twitter"></i> @mortty_fidelis</a>
+    </div>
+  </section>
+  <footer>
+    <p>© 2026 Fidelis Mortty — Next-generation tech ecosystem | <i class="fas fa-lock"></i> Secure & futuristic</p>
+  </footer>
+</div>
+
+<!-- MODAL LOGIN / SIGNUP -->
+<div id="authModal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal" id="closeModalBtn">&times;</button>
+    <h2 id="modalTitle">Login</h2>
+    <div class="input-group">
+      <input type="text" id="authName" placeholder="Full name (for signup)" style="display: none;">
+    </div>
+    <div class="input-group">
+      <input type="email" id="authEmail" placeholder="Email address" required>
+    </div>
+    <div class="input-group">
+      <input type="password" id="authPassword" placeholder="Password" required>
+    </div>
+    <div class="modal-buttons">
+      <button id="submitAuthBtn" class="btn btn-primary">Continue</button>
+      <button id="cancelModalBtn" class="btn btn-outline">Cancel</button>
+    </div>
+    <div class="switch-auth" id="switchText"></div>
+  </div>
+</div>
+
+<script>
+  // ---------- MODERN AUTH SYSTEM (localStorage demo) ----------
+  let currentMode = 'login'; // 'login' or 'signup'
+
+  const modal = document.getElementById('authModal');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const cancelModalBtn = document.getElementById('cancelModalBtn');
+  const submitAuthBtn = document.getElementById('submitAuthBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const authNameField = document.getElementById('authName');
+  const authEmail = document.getElementById('authEmail');
+  const authPassword = document.getElementById('authPassword');
+  const switchText = document.getElementById('switchText');
+  const unauthBtnsDiv = document.getElementById('unauthBtns');
+  const userMenuDiv = document.getElementById('userMenu');
+  const userNameSpan = document.getElementById('userNameDisplay');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Helper: update UI based on logged in user
+  function updateAuthUI() {
+    const user = localStorage.getItem('loggedInUser');
+    if (user) {
+      const userData = JSON.parse(user);
+      unauthBtnsDiv.style.display = 'none';
+      userMenuDiv.style.display = 'flex';
+      userNameSpan.textContent = userData.name || userData.email.split('@')[0];
+    } else {
+      unauthBtnsDiv.style.display = 'flex';
+      userMenuDiv.style.display = 'none';
+    }
+  }
+
+  // open modal with mode
+  function openModal(mode) {
+    currentMode = mode;
+    if (mode === 'login') {
+      modalTitle.innerText = 'Login';
+      authNameField.style.display = 'none';
+      switchText.innerHTML = `No account? <span id="switchToSignup">Create one</span>`;
+    } else {
+      modalTitle.innerText = 'Sign Up';
+      authNameField.style.display = 'block';
+      switchText.innerHTML = `Already have an account? <span id="switchToLogin">Login</span>`;
+    }
+    authEmail.value = '';
+    authPassword.value = '';
+    if (authNameField) authNameField.value = '';
+    modal.style.display = 'flex';
+    attachSwitchEvents();
+  }
+
+  function attachSwitchEvents() {
+    const switchToSignup = document.getElementById('switchToSignup');
+    const switchToLogin = document.getElementById('switchToLogin');
+    if (switchToSignup) switchToSignup.onclick = () => openModal('signup');
+    if (switchToLogin) switchToLogin.onclick = () => openModal('login');
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  // mock user database (localStorage)
+  function getUsers() {
+    const users = localStorage.getItem('app_users');
+    return users ? JSON.parse(users) : [];
+  }
+
+  function saveUsers(users) {
+    localStorage.setItem('app_users', JSON.stringify(users));
+  }
+
+  function handleAuth() {
+    const email = authEmail.value.trim();
+    const password = authPassword.value.trim();
+    if (!email || !password) {
+      alert('Please fill all fields');
+      return;
+    }
+    let users = getUsers();
+
+    if (currentMode === 'login') {
+      const user = users.find(u => u.email === email && u.password === password);
+      if (user) {
+        localStorage.setItem('loggedInUser', JSON.stringify({ email: user.email, name: user.name }));
+        updateAuthUI();
+        closeModal();
+        alert(`Welcome back, ${user.name || email.split('@')[0]}!`);
+      } else {
+        alert('Invalid credentials. Sign up if you don\'t have an account.');
+      }
+    } 
+    else if (currentMode === 'signup') {
+      const name = authNameField.value.trim();
+      if (!name) {
+        alert('Please enter your full name');
+        return;
+      }
+      if (users.find(u => u.email === email)) {
+        alert('User already exists. Please login.');
+        return;
+      }
+      const newUser = { email, password, name };
+      users.push(newUser);
+      saveUsers(users);
+      localStorage.setItem('loggedInUser', JSON.stringify({ email, name }));
+      updateAuthUI();
+      closeModal();
+      alert(`Account created! Welcome ${name}`);
+    }
+  }
+
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('loggedInUser');
+    updateAuthUI();
+    alert('Logged out successfully');
+  });
+
+  loginBtn.addEventListener('click', () => openModal('login'));
+  signupBtn.addEventListener('click', () => openModal('signup'));
+  submitAuthBtn.addEventListener('click', handleAuth);
+  closeModalBtn.addEventListener('click', closeModal);
+  cancelModalBtn.addEventListener('click', closeModal);
+  window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+  // initial UI
+  updateAuthUI();
+
+  // add interactive 3D tilt to cards (extra modern)
+  const cards = document.querySelectorAll('.tilt-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 15;
+      const rotateY = (centerX - x) / 15;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+    });
+  });
+
+  // smooth scrolling
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if(targetId && targetId !== '#') {
+        const target = document.querySelector(targetId);
+        if(target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
